@@ -13,7 +13,9 @@ cat vitis_hls.log |grep -E '<INFO|PASS'
 <INFO_CSIM_64b> CSIM argv: ../../../../sample.lz4 ../../../../sample.out ../../../../sample.txt 
 <INFO> length of comprssed file (byte?): 558
 <INFO> inaxistream i: 0  0x1ba74064184d2204
+
 <INFO> inaxistream i: 8  0x0a2a2f1bf1000002
+
 <INFO> inaxistream i: 16  0x4320296328202a20
 <INFO> inaxistream i: 24  0x746867697279706f
 <INFO> inaxistream i: 32  0x6958203931303220
