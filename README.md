@@ -3,8 +3,42 @@ This release contains HLS source files for a performance-optimzed version of LZ4
 
 ## Running HLS (including CSIM, CSYN,COSIM and POST-IMPL) 
 
-See Build Instructions Below
+# IP Build Instructions: compile HLS source files for optimized LZ4 Decompression
 
+# create <workarea> directory
+mkdir <workarea>
+cd <workarea>
+
+# Vitis Library cloning
+git clone --branch v2022.2_update1 https://github.com/Xilinx/Vitis_Libraries.git
+# NOTE: After cloning, Vitis Library is in <workarea>/Vitis_Libraries
+
+# HLS_IP setup
+mkdir <workarea>/HLS_IP
+# Download Lz4_optimization-v1.0.zip is from GitHub Xilinx/lz4-decompression-opt repository
+# place Lz4_optimization-v1.0.zip in <workarea>/HLS_IP 
+cd <workarea>/HLS_IP
+unzip Lz4_optimization-v1.0.zip
+
+# use scripts to copy in necessary files from Vitis Library
+cd <workarea>/HLS_IP/Lz4_optimization-v1.0/cp_scripts
+# execute scripts 
+./cp_L1_inc.sh  
+./cp_L2_inc.sh  
+./cp_L2_src.sh  
+./cp_security_L1_inc.sh 
+./cp_test_data.sh 
+
+#source vivado tools 2023.2 tools setup
+<vivado 2023.2 setup script>
+
+# compile HLS IP
+cd <workarea>/HLS_IP/Lz4_optimization-v1.0
+vitis_hls -f run_hls_64b.tcl
+
+# check for presence of IP file output_64b.zip in <workarea>/HLS_IP/Lz4_optimization-v1.0
+
+##################################################################################################
 ## How to check the result of HLS CSIM and HLS COSIM results 
 
 cat vitis_hls.log |grep -E '<INFO|PASS'
@@ -144,44 +178,5 @@ cat vitis_hls.log |grep -E '<INFO|PASS'
 INFO: [COSIM 212-1000] *** C/RTL co-simulation finished: PASS ***
 
 <INFO> =============== HLS COSIM completed =============== 
-
-############################################################################################################
-############################################################################################################
-# IP Build Instructions: compile HLS source files for optimized LZ4 Decompression
-
-# create <workarea> directory
-mkdir <workarea>
-cd <workarea>
-
-# Vitis Library cloning
-git clone --branch v2022.2_update1 https://github.com/Xilinx/Vitis_Libraries.git
-# NOTE: After cloning, Vitis Library is in <workarea>/Vitis_Libraries
-
-# HLS_IP setup
-mkdir <workarea>/HLS_IP
-# Download Lz4_optimization-v1.0.zip is from GitHub Xilinx/lz4-decompression-opt repository
-# place Lz4_optimization-v1.0.zip in <workarea>/HLS_IP 
-cd <workarea>/HLS_IP
-unzip Lz4_optimization-v1.0.zip
-
-# use scripts to copy in necessary files from Vitis Library
-cd <workarea>/HLS_IP/Lz4_optimization-v1.0/cp_scripts
-# execute scripts 
-./cp_L1_inc.sh  
-./cp_L2_inc.sh  
-./cp_L2_src.sh  
-./cp_security_L1_inc.sh 
-./cp_test_data.sh 
-
-#source vivado tools 2023.2 tools setup
-<vivado 2023.2 setup script>
-
-# compile HLS IP
-cd <workarea>/HLS_IP/Lz4_optimization-v1.0
-vitis_hls -f run_hls_64b.tcl
-
-# check for presence of IP file output_64b.zip in <workarea>/HLS_IP/Lz4_optimization-v1.0
-
-
 
 
